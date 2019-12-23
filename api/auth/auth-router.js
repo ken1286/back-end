@@ -90,12 +90,13 @@ function generateToken(user) {
   // console.log("user: ", user);
   const jwtPayload = {
     subject: user.id,
-    username: user.username
+    username: user.username,
+    role: user.role
   };
 
   const jwtSecret = process.env.JWT_SECRET || 'this is my secret!';
   const jwtOptions = {
-    expiresIn: '1d'
+    expiresIn: '7d'
   };
 
   return jwt.sign(jwtPayload, jwtSecret, jwtOptions);
