@@ -9,7 +9,11 @@ exports.up = function(knex) {
 
     users.string('password', 128).notNullable();
 
-    users.string('role', 128).notNullable();
+    users.integer('role').notNullable();
+    // role: 1 operator, 2 diner
+
+    users.float('latitude');
+    users.float('longitude');
   });
 };
 
