@@ -10,7 +10,8 @@ module.exports = {
 };
 
 function find() {
-  return db('users').select('id', 'username', 'password');
+  // return db('users').select('id', 'username', 'password');
+  return db('users').select('username', 'role', 'latitude', 'longitude');
 }
 
 function findBy(filter) {
@@ -23,10 +24,22 @@ async function add(user) {
   return findById(id);
 }
 
-function findById(id) {
-  return db('users')
+async function findById(id) {
+  console.log('test');
+  const user = await db('users')
     .where({ id })
-    .first();
+    .first()
+    .select('username', 'role', 'latitude', 'longitude', 'id');
+
+  const trucks = await db('trucks')
+    .join('favorite_trucks', 'trucks.id', 'favorite_trucks.truck_id')
+    .where({ 'favorite_trucks.diner_id': id })
+    .select('trucks.id');
+
+  console.log(trucks);
+  console.log(user);
+  const result = { ...user, trucks };
+  return result;
 }
 
 function remove(id) {
