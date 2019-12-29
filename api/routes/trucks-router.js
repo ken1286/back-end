@@ -1,13 +1,31 @@
 const router = require('express').Router();
-const db = require('../../data/dbConfig.js');
-
-// const Users = require('../models/users-model.js');
+const Trucks = require('../models/trucks-model.js');
 const restricted = require('../auth/restricted-middleware.js');
 
 router.get('/', restricted, async (req, res) => {
-  const data = await db('trucks').select('*');
+  Trucks.find()
+    .then(trucks => {
+      res.status(200).json(trucks);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
 
-  res.status(200).json(data);
+router.get('/:id', restricted, (req, res) => {
+  const id = req.params.id;
+
+  Trucks.findById(id)
+    .then(truck => {
+      if (!truck) {
+        res.status(404).json({ message: 'No truck found' });
+      } else {
+        res.status(200).json(truck);
+      }
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;

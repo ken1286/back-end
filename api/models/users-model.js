@@ -25,6 +25,7 @@ async function add(user) {
 }
 
 async function findById(id) {
+  // user ID
   console.log('test');
   const user = await db('users')
     .where({ id })
