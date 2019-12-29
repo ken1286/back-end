@@ -26,6 +26,8 @@ exports.up = function(knex) {
 
     trucks.datetime('departure_time', { precision: 6 });
     // .defaultTo(knex.fn.now(6));
+
+    trucks.specificType('menu', 'text ARRAY');
   });
 };
 
