@@ -10,6 +10,14 @@ exports.up = function(knex) {
       .inTable('trucks')
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
+
+    menu
+      .string('name') // item
+      .notNullable();
+
+    menu.float('price').notNullable();
+
+    menu.string('imageUrl');
   });
 };
 

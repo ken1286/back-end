@@ -24,18 +24,29 @@ async function add(user) {
   return findById(id);
 }
 
-async function findById(id) {
+async function findById(userId) {
   // user ID
   console.log('test');
   const user = await db('users')
-    .where({ id })
+    .where({ 'users.id': userId })
     .first()
     .select('username', 'role', 'latitude', 'longitude', 'id');
 
-  const trucks = await db('trucks')
-    .join('favorite_trucks', 'trucks.id', 'favorite_trucks.truck_id')
-    .where({ 'favorite_trucks.diner_id': id })
-    .select('trucks.id');
+  console.log(user);
+
+  let trucks = [];
+  if (user.role === 2) {
+    // return favorite trucks if diner
+    trucks = await db('trucks')
+      .join('favorite_trucks', 'trucks.id', 'favorite_trucks.truck_id')
+      .where({ 'favorite_trucks.diner_id': userId })
+      .select('*');
+  } else {
+    // return owned trucks if operator
+    trucks = await db('trucks')
+      .where({ 'trucks.operator_id': userId })
+      .select('*');
+  }
 
   console.log(trucks);
   console.log(user);

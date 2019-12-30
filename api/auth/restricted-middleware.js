@@ -12,7 +12,11 @@ module.exports = (req, res, next) => {
       } else {
         //valid token
 
-        req.jwt = { username: decoded.username, user_id: decoded.subject };
+        req.jwt = {
+          username: decoded.username,
+          user_id: decoded.subject,
+          role: decoded.role
+        };
 
         next();
       }

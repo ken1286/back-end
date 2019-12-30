@@ -13,7 +13,7 @@ exports.up = function(knex) {
 
     trucks.string('imageUrl');
 
-    trucks.string('cuisine');
+    trucks.string('cuisine').notNullable();
 
     trucks.float('current_latitude');
     trucks.float('current_longitude');
@@ -21,13 +21,9 @@ exports.up = function(knex) {
     trucks.float('next_latitude');
     trucks.float('next_longitude');
 
-    trucks.datetime('arrival_time', { precision: 6 });
-    // .defaultTo(knex.fn.now(6));
+    trucks.string('arrival_time');
 
-    trucks.datetime('departure_time', { precision: 6 });
-    // .defaultTo(knex.fn.now(6));
-
-    // trucks.specificType('menu', 'text ARRAY');
+    trucks.string('departure_time');
   });
 };
 
