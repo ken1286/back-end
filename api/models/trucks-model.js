@@ -37,19 +37,29 @@ async function add(truck, operatorId) {
   return find();
 }
 
-async function update(truckId, operatorId, changes) {
-  const truck = await db('trucks')
-    .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
-    .first();
-
-  const updatedTruck = { ...truck, changes };
-
+async function update(truckId, operatorId, originalTruck, changes) {
   await db('trucks')
     .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
     .first()
-    .update(updatedTruck);
+    .update({ ...originalTruck, changes });
 
   return findById(truckId);
+  // const truck = await db('trucks')
+  //   .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
+  //   .first();
+
+  // // console.log(truck);
+
+  // const updatedTruck = { ...truck, changes };
+
+  // if (truck && truck.operator_id === operatorId) {
+  //   return db('trucks')
+  //     .where({ 'trucks.id': truckId})
+  //     .first()
+  //     .update(updatedTruck);
+  // }
+
+  // return findById(truckId);
 }
 
 function remove(id) {

@@ -28,4 +28,47 @@ router.get('/:id', restricted, (req, res) => {
     });
 });
 
+router.post('/', restricted, (req, res) => {
+  const role = req.jwt.role;
+  const userId = req.jwt.user_id;
+  const newTruck = req.body;
+  console.log(newTruck);
+
+  if (role !== 1) {
+    return res
+      .status(500)
+      .json({ message: 'User must be a truck operator to add a truck.' });
+  }
+
+  Trucks.add(newTruck, userId)
+    .then(truck => {
+      res.status(200).json(truck);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+router.put('/:id', restricted, (req, res) => {
+  const role = req.jwt.role;
+  const userId = req.jwt.user_id;
+  const truckId = req.params.id;
+  const truckChanges = req.body;
+  console.log(truckChanges);
+
+  if (role !== 1) {
+    return res
+      .status(500)
+      .json({ message: 'User must be a truck operator to update a truck.' });
+  }
+
+  Trucks.update(truckId, userId, truckChanges)
+    .then(truck => {
+      res.status(200).json(truck);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;
