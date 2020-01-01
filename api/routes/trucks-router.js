@@ -49,7 +49,7 @@ router.post('/', restricted, (req, res) => {
     });
 });
 
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', restricted, async (req, res) => {
   const role = req.jwt.role;
   const userId = req.jwt.user_id;
   const truckId = req.params.id;
@@ -62,7 +62,31 @@ router.put('/:id', restricted, (req, res) => {
       .json({ message: 'User must be a truck operator to update a truck.' });
   }
 
-  Trucks.update(truckId, userId, truckChanges)
+  let truckToUpdate = await Trucks.findById(truckId);
+
+  if (truckToUpdate) {
+    Trucks.update(truckId, userId, truckToUpdate, truckChanges)
+      .then(truck => {
+        res.status(200).json(truck);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  }
+});
+
+router.delete('/:id', restricted, (req, res) => {
+  const role = req.jwt.role;
+
+  if (role !== 1) {
+    return res
+      .status(500)
+      .json({ message: 'User must be a truck operator to delete a truck.' });
+  }
+
+  const truckId = req.params.id;
+
+  Trucks.remove(truckId)
     .then(truck => {
       res.status(200).json(truck);
     })

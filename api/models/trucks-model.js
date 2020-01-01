@@ -62,8 +62,10 @@ async function update(truckId, operatorId, originalTruck, changes) {
   // return findById(truckId);
 }
 
-function remove(id) {
-  return db('trucks')
+async function remove(id) {
+  await db('trucks')
     .where({ id })
     .del();
+
+  return find();
 }
