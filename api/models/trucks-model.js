@@ -6,7 +6,9 @@ module.exports = {
   findBy,
   findById,
   remove,
-  update
+  update,
+  addFavorite,
+  removeFavorite
 };
 
 function find() {
@@ -68,4 +70,30 @@ async function remove(id) {
     .del();
 
   return find();
+}
+
+async function removeFavorite(userId, truckId) {
+  await db('favorite_trucks')
+    .where({ diner_id: userId, truck_id: truckId })
+    .del();
+
+  const trucks = await db('trucks')
+    .join('favorite_trucks', 'trucks.id', 'favorite_trucks.truck_id')
+    .where({ 'favorite_trucks.diner_id': userId })
+    .select('trucks.*');
+
+  return trucks;
+}
+
+async function addFavorite(userId, truckId) {
+  await removeFavorite(userId, truckId);
+
+  await db('favorite_trucks').insert({ diner_id: userId, truck_id: truckId });
+
+  const trucks = await db('trucks')
+    .join('favorite_trucks', 'trucks.id', 'favorite_trucks.truck_id')
+    .where({ 'favorite_trucks.diner_id': userId })
+    .select('trucks.*');
+
+  return trucks;
 }

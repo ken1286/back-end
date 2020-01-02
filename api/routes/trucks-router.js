@@ -95,4 +95,30 @@ router.delete('/:id', restricted, (req, res) => {
     });
 });
 
+router.post('/:id/favorite', restricted, (req, res) => {
+  const truckId = req.params.id;
+  const userId = req.jwt.user_id;
+
+  Trucks.addFavorite(userId, truckId)
+    .then(trucks => {
+      res.status(200).json(trucks);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+router.delete('/:id/favorite', restricted, (req, res) => {
+  const truckId = req.params.id;
+  const userId = req.jwt.user_id;
+
+  Trucks.removeFavorite(userId, truckId)
+    .then(trucks => {
+      res.status(200).json(trucks);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;

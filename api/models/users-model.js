@@ -40,7 +40,7 @@ async function findById(userId) {
     trucks = await db('trucks')
       .join('favorite_trucks', 'trucks.id', 'favorite_trucks.truck_id')
       .where({ 'favorite_trucks.diner_id': userId })
-      .select('*');
+      .select('trucks.*');
   } else {
     // return owned trucks if operator
     trucks = await db('trucks')

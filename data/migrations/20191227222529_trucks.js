@@ -11,6 +11,8 @@ exports.up = function(knex) {
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
 
+    trucks.string('name');
+
     trucks.string('imageUrl');
 
     trucks.string('cuisine').notNullable();
