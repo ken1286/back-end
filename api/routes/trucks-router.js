@@ -121,4 +121,30 @@ router.delete('/:id/favorite', restricted, (req, res) => {
     });
 });
 
+router.post('/:id/menu', restricted, (req, res) => {
+  const truckId = req.params.id;
+  const menuItem = req.body;
+
+  Trucks.addMenuItem(menuItem, truckId)
+    .then(truck => {
+      res.status(200).json(truck);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+router.delete('/:id/menu/:itemid', restricted, (req, res) => {
+  const truckId = req.params.id;
+  const itemId = req.params.itemid;
+
+  Trucks.removeMenuItem(itemId, truckId)
+    .then(truck => {
+      res.status(200).json(truck);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;

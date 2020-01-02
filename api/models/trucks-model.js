@@ -8,7 +8,9 @@ module.exports = {
   remove,
   update,
   addFavorite,
-  removeFavorite
+  removeFavorite,
+  addMenuItem,
+  removeMenuItem
 };
 
 function find() {
@@ -21,11 +23,19 @@ function findBy(filter) {
   return db('trucks').where(filter);
 }
 
-function findById(id) {
+async function findById(id) {
   // truck id
-  return db('trucks')
+  const truck = await db('trucks')
     .where({ id })
     .first();
+
+  const menu = await db('menu')
+    .where({ truck_id: id })
+    .select('*');
+
+  const result = { ...truck, menu };
+
+  return result;
 }
 
 async function add(truck, operatorId) {
@@ -46,22 +56,6 @@ async function update(truckId, operatorId, originalTruck, changes) {
     .update({ ...originalTruck, changes });
 
   return findById(truckId);
-  // const truck = await db('trucks')
-  //   .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
-  //   .first();
-
-  // // console.log(truck);
-
-  // const updatedTruck = { ...truck, changes };
-
-  // if (truck && truck.operator_id === operatorId) {
-  //   return db('trucks')
-  //     .where({ 'trucks.id': truckId})
-  //     .first()
-  //     .update(updatedTruck);
-  // }
-
-  // return findById(truckId);
 }
 
 async function remove(id) {
@@ -90,10 +84,24 @@ async function addFavorite(userId, truckId) {
 
   await db('favorite_trucks').insert({ diner_id: userId, truck_id: truckId });
 
-  const trucks = await db('trucks')
+  const favTrucks = await db('trucks')
     .join('favorite_trucks', 'trucks.id', 'favorite_trucks.truck_id')
     .where({ 'favorite_trucks.diner_id': userId })
     .select('trucks.*');
 
-  return trucks;
+  return favTrucks;
+}
+
+async function addMenuItem(item, truckId) {
+  await db('menu').insert({ ...item, truck_id: truckId });
+
+  return findById(truckId);
+}
+
+async function removeMenuItem(itemId, truckId) {
+  await db('menu')
+    .where({ id: itemId })
+    .del();
+
+  return findById(truckId);
 }
