@@ -10,7 +10,9 @@ module.exports = {
   addFavorite,
   removeFavorite,
   addMenuItem,
-  removeMenuItem
+  removeMenuItem,
+  addReview,
+  removeReview
 };
 
 function find() {
@@ -33,7 +35,12 @@ async function findById(id) {
     .where({ truck_id: id })
     .select('*');
 
-  const result = { ...truck, menu };
+  const reviews = await db('reviews')
+    .join('users', 'reviews.user_id', 'users.id')
+    .where({ truck_id: id })
+    .select('reviews.*', 'users.username');
+
+  const result = { ...truck, menu, reviews };
 
   return result;
 }
@@ -101,6 +108,20 @@ async function addMenuItem(item, truckId) {
 async function removeMenuItem(itemId, truckId) {
   await db('menu')
     .where({ id: itemId })
+    .del();
+
+  return findById(truckId);
+}
+
+async function addReview(review, truckId, userId) {
+  await db('reviews').insert({ ...review, truck_id: truckId, user_id: userId });
+
+  return findById(truckId);
+}
+
+async function removeReview(reviewId, truckId) {
+  await db('reviews')
+    .where({ id: reviewId })
     .del();
 
   return findById(truckId);

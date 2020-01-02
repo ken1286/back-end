@@ -20,6 +20,8 @@ exports.up = function(knex) {
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
 
+    reviews.string('title');
+
     reviews.text('review').notNullable();
   });
 };

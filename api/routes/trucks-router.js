@@ -147,4 +147,31 @@ router.delete('/:id/menu/:itemid', restricted, (req, res) => {
     });
 });
 
+router.post('/:id/review', restricted, (req, res) => {
+  const truckId = req.params.id;
+  const review = req.body;
+  const userId = req.jwt.user_id;
+
+  Trucks.addReview(review, truckId, userId)
+    .then(truck => {
+      res.status(200).json(truck);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+router.delete('/:id/review/:reviewid', restricted, (req, res) => {
+  const truckId = req.params.id;
+  const reviewId = req.params.reviewid;
+
+  Trucks.removeReview(reviewId, truckId)
+    .then(truck => {
+      res.status(200).json(truck);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;
