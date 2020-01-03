@@ -18,7 +18,7 @@ Section Contents:
 - [/api/trucks/:id/review POST](#trucksidreview-post)
 - [/api/trucks/:id/review/:reviewid DELETE](#trucksidreview-delete)
 
-### /api/auth/login POST
+### /api/auth/login POST #authlogin-post
 
 Expects an object with this format as the request body:
 
