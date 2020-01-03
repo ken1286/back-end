@@ -16,7 +16,7 @@ Section Contents:
 - [/api/trucks/:id/menu POST](#apitrucksidmenu-post)
 - [/api/trucks/:id/menu/:itemid DELETE](#apitrucksidmenuitemid-delete)
 - [/api/trucks/:id/review POST](#apitrucksidreview-post)
-- [/api/trucks/:id/review/:reviewid DELETE](#apitrucksidreview-delete)
+- [/api/trucks/:id/review/:reviewid DELETE](#apitrucksidreviewreviewid-delete)
 
 ### /api/auth/login POST
 
