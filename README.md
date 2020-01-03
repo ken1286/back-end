@@ -3,20 +3,20 @@ https://lambda-food-truck.herokuapp.com/
 
 Section Contents:
 
-- [/api/auth/login POST](#authlogin-post)
-- [/api/auth/register POST](#authregister-post)
-- [/api/users/user GET](#usersuser-get)
-- [/api/trucks GET](#trucks-get)
-- [/api/trucks/:id GET](#trucksid-get)
-- [/api/trucks POST](#trucks-post)
-- [/api/trucks/:id PUT](#trucksid-put)
-- [/api/trucks/:id DELETE](#trucksid-delete)
-- [/api/trucks/:id/favorite POST](#trucksidfavorite-post)
-- [/api/trucks/:id/favorite DELETE](#trucksidfavorite-delete)
-- [/api/trucks/:id/menu POST](#trucksidmenu-post)
-- [/api/trucks/:id/menu/:itemid DELETE](#trucksidmenuitemid-delete)
-- [/api/trucks/:id/review POST](#trucksidreview-post)
-- [/api/trucks/:id/review/:reviewid DELETE](#trucksidreview-delete)
+- [/api/auth/login POST](#apiauthlogin-post)
+- [/api/auth/register POST](#apiauthregister-post)
+- [/api/users/user GET](#apiusersuser-get)
+- [/api/trucks GET](#apitrucks-get)
+- [/api/trucks/:id GET](#apitrucksid-get)
+- [/api/trucks POST](#apitrucks-post)
+- [/api/trucks/:id PUT](#apitrucksid-put)
+- [/api/trucks/:id DELETE](#apitrucksid-delete)
+- [/api/trucks/:id/favorite POST](#apitrucksidfavorite-post)
+- [/api/trucks/:id/favorite DELETE](#apitrucksidfavorite-delete)
+- [/api/trucks/:id/menu POST](#apitrucksidmenu-post)
+- [/api/trucks/:id/menu/:itemid DELETE](#apitrucksidmenuitemid-delete)
+- [/api/trucks/:id/review POST](#apitrucksidreview-post)
+- [/api/trucks/:id/review/:reviewid DELETE](#apitrucksidreview-delete)
 
 ### /api/auth/login POST
 
