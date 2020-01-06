@@ -31,7 +31,9 @@ async function find() {
 
     let total = 0;
     ratings.forEach(rating => {
-      total += rating;
+      if (rating !== null) {
+        total += rating;
+      }
     });
 
     truck.avgRating = total / ratings.length;
