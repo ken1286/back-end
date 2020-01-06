@@ -22,6 +22,8 @@ exports.up = function(knex) {
 
     reviews.string('title');
 
+    reviews.integer('rating');
+
     reviews.text('review').notNullable();
   });
 };

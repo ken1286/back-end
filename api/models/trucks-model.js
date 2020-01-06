@@ -15,9 +15,29 @@ module.exports = {
   removeReview
 };
 
-function find() {
+async function find() {
   // all trucks
-  return db('trucks');
+  const trucks = await db('trucks');
+
+  const reviews = await db('reviews');
+
+  trucks.forEach(truck => {
+    ratings = [];
+    reviews.forEach(review => {
+      if (truck.id === review.truck_id) {
+        ratings.push(review.rating);
+      }
+    });
+
+    let total = 0;
+    ratings.forEach(rating => {
+      total += rating;
+    });
+
+    truck.avgRating = total / ratings.length;
+  });
+
+  return trucks;
 }
 
 function findBy(filter) {
@@ -40,7 +60,22 @@ async function findById(id) {
     .where({ truck_id: id })
     .select('reviews.*', 'users.username');
 
-  const result = { ...truck, menu, reviews };
+  const ratings = reviews.map(review => {
+    if (review.rating !== null) {
+      return review.rating;
+    }
+  });
+
+  console.log(ratings);
+
+  let total = 0;
+  ratings.forEach(rating => {
+    total += rating;
+  });
+
+  let avgRating = total / ratings.length;
+
+  const result = { ...truck, menu, avgRating, reviews };
 
   return result;
 }
