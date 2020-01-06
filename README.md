@@ -231,6 +231,7 @@ Adds a review for selected truck. Expects an object with this format as the requ
 ```
 {
     "title": "stuff", //string
+    "rating: 3, //integer
     "review": "this truck is great" //string (required)
 }
 ```
