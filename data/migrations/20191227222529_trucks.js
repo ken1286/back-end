@@ -17,6 +17,8 @@ exports.up = function(knex) {
 
     trucks.string('cuisine').notNullable();
 
+    trucks.string('description');
+
     trucks.float('current_latitude');
     trucks.float('current_longitude');
 
