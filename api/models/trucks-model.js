@@ -106,7 +106,7 @@ async function add(truck, operatorId) {
 }
 
 async function update(truckId, operatorId, changes) {
-  let truckToUpdate = await Trucks.getOnlyTruck(truckId);
+  let truckToUpdate = await getOnlyTruck(truckId);
 
   console.log(truckToUpdate);
   if (truckToUpdate) {
