@@ -108,6 +108,14 @@ async function add(truck, operatorId) {
 async function update(truckId, operatorId, changes) {
   let truckToUpdate = await getOnlyTruck(truckId);
 
+  const menu = await db('menu')
+    .where({ truck_id: truckId })
+    .select('*');
+
+  menu.forEach(async item => {
+    await removeMenuItem(item.id, truckId);
+  });
+
   if (changes.menu.length > 0) {
     changes.menu.forEach(async item => {
       await addMenuItem(item, truckId);
@@ -194,3 +202,9 @@ async function removeReview(reviewId, truckId) {
 
   return findById(truckId);
 }
+
+// married 2 dogs 2 cats
+// bad jobs
+// board game collection
+// 20 tarantulas
+//
