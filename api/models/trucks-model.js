@@ -105,13 +105,20 @@ async function add(truck, operatorId) {
   return find();
 }
 
-async function update(truckId, operatorId, originalTruck, changes) {
-  await db('trucks')
-    .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
-    .first()
-    .update({ ...originalTruck, changes });
+async function update(truckId, operatorId, changes) {
+  let truckToUpdate = await Trucks.getOnlyTruck(id);
 
-  return findById(truckId);
+  console.log(truckToUpdate);
+  if (truckToUpdate) {
+    await db('trucks')
+      .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
+      .first()
+      .update({ ...originalTruck, changes });
+
+    return findById(truckId);
+  } else {
+    return 'Truck not found.';
+  }
 }
 
 async function remove(id) {

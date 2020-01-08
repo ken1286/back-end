@@ -62,19 +62,16 @@ router.put('/:id', restricted, async (req, res) => {
       .json({ message: 'User must be a truck operator to update a truck.' });
   }
 
-  let id = req.params.id;
-  let truckToUpdate = await Trucks.getOnlyTruck(id);
-  console.log(truckToUpdate);
-
-  if (truckToUpdate) {
-    Trucks.update(truckId, userId, truckToUpdate, truckChanges)
-      .then(truck => {
-        res.status(200).json(truck);
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
-  }
+  // let id = req.params.id;
+  // let truckToUpdate = await Trucks.getOnlyTruck(id);
+  // console.log(truckToUpdate);
+  Trucks.update(truckId, userId, truckChanges)
+    .then(truck => {
+      res.status(200).json(truck);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
 });
 
 router.delete('/:id', restricted, (req, res) => {

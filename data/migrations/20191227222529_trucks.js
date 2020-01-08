@@ -13,7 +13,7 @@ exports.up = function(knex) {
 
     trucks.string('name');
 
-    trucks.string('imageurl');
+    trucks.string('imageUrl');
 
     trucks.string('cuisine').notNullable();
 
