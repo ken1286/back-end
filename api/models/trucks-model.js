@@ -44,7 +44,9 @@ async function find() {
 
 function findBy(filter) {
   // good for operator_id
-  return db('trucks').where(filter);
+  return db('trucks')
+    .where(filter)
+    .first();
 }
 
 async function findById(id) {

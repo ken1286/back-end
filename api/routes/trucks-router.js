@@ -62,7 +62,7 @@ router.put('/:id', restricted, async (req, res) => {
       .json({ message: 'User must be a truck operator to update a truck.' });
   }
 
-  let truckToUpdate = await Trucks.findById(truckId);
+  let truckToUpdate = await Trucks.findBy(truckId);
   console.log(truckToUpdate);
 
   if (truckToUpdate) {
