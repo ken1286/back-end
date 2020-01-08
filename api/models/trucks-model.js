@@ -108,6 +108,14 @@ async function add(truck, operatorId) {
 async function update(truckId, operatorId, changes) {
   let truckToUpdate = await getOnlyTruck(truckId);
 
+  if (changes.menu.length > 0) {
+    changes.menu.forEach(async item => {
+      await addMenuItem(item, truckId);
+    });
+  }
+
+  delete changes['menu'];
+
   console.log(truckToUpdate);
   // if (truckToUpdate) {
 
