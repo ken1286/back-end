@@ -112,6 +112,7 @@ async function update(truckId, operatorId, changes) {
   // if (truckToUpdate) {
 
   const updatedTruck = { ...truckToUpdate, ...changes };
+  console.log(updatedTruck);
 
   await db('trucks')
     .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
