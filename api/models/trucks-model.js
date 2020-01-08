@@ -53,7 +53,7 @@ function findBy(filter) {
 async function getOnlyTruck(id) {
   // truck id
   const truck = await db('trucks')
-    .where({ id })
+    .where({ 'trucks.id': id })
     .first();
 
   return truck;
@@ -106,7 +106,7 @@ async function add(truck, operatorId) {
 }
 
 async function update(truckId, operatorId, changes) {
-  let truckToUpdate = await Trucks.getOnlyTruck(id);
+  let truckToUpdate = await Trucks.getOnlyTruck(truckId);
 
   console.log(truckToUpdate);
   if (truckToUpdate) {
