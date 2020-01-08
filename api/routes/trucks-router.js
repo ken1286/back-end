@@ -63,6 +63,7 @@ router.put('/:id', restricted, async (req, res) => {
   }
 
   let truckToUpdate = await Trucks.findById(truckId);
+  console.log(truckToUpdate);
 
   if (truckToUpdate) {
     Trucks.update(truckId, userId, truckToUpdate, truckChanges)
