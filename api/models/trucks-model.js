@@ -12,7 +12,8 @@ module.exports = {
   addMenuItem,
   removeMenuItem,
   addReview,
-  removeReview
+  removeReview,
+  getOnlyTruck
 };
 
 async function find() {
@@ -47,6 +48,15 @@ function findBy(filter) {
   return db('trucks')
     .where({ filter })
     .first();
+}
+
+async function getOnlyTruck(id) {
+  // truck id
+  const truck = await db('trucks')
+    .where({ id })
+    .first();
+
+  return truck;
 }
 
 async function findById(id) {

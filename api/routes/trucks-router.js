@@ -63,7 +63,7 @@ router.put('/:id', restricted, async (req, res) => {
   }
 
   let id = req.params.id;
-  let truckToUpdate = await Trucks.findBy(id);
+  let truckToUpdate = await Trucks.getOnlyTruck(id);
   console.log(truckToUpdate);
 
   if (truckToUpdate) {
