@@ -1,4 +1,5 @@
 const db = require('../../data/dbConfig.js');
+const Trucks = require('./trucks-model.js');
 
 module.exports = {
   add,
@@ -46,6 +47,19 @@ async function findById(userId) {
     trucks = await db('trucks')
       .where({ 'trucks.operator_id': userId })
       .select('*');
+
+    const menu = await db('menu')
+      .where({ truck_id: userId })
+      .select('*');
+
+    trucks.forEach(truck => {
+      truck.menu = [];
+      menu.forEach(item => {
+        if (item.truck_id === truck.id) {
+          truck.menu.push(item);
+        }
+      });
+    });
   }
 
   console.log(trucks);

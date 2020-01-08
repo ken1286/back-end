@@ -115,7 +115,7 @@ async function update(truckId, operatorId, changes) {
   console.log(updatedTruck);
 
   await db('trucks')
-    .where({ 'trucks.id': truckId, 'trucks.operator_id': operatorId })
+    .where({ 'trucks.id': truckId })
     .first()
     .update(updatedTruck);
 
