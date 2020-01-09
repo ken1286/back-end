@@ -193,7 +193,7 @@ Expects an object with this format as the request body:
     "next_longitude": null, //float
     "arrival_time": null, //string
     "departure_time":, null //string
-    "menu": [{      //array of menu objects
+    "menu": [{      //array of menu objects, (REQUIRED, at least an empty array)
                 "name": "taco supreme", //string (required)
                 "price": 5.99, //float (required)
                 "imageUrl": null //string
